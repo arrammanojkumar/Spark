@@ -16,9 +16,9 @@ public class WordCount {
 	public static void main(String[] args) {
 		SparkConf conf = new SparkConf().setAppName("Word Count ").setMaster(
 				"local");
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext spark = new JavaSparkContext(conf);
 
-		JavaRDD<String> fileRDD = sc.textFile("D://Git Hub//Spark//Assignments//input.txt");
+		JavaRDD<String> fileRDD = spark.textFile("D://Git Hub//Spark//Assignments//input.txt");
 
 		
 		/**
@@ -65,7 +65,7 @@ public class WordCount {
 		
 		System.out.println("Word Counts are \n : "+count.collect());
 		
-		sc.stop();
-		sc.close();
+		spark.stop();
+		spark.close();
 	}
 }
