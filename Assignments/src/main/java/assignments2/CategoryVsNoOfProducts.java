@@ -64,6 +64,9 @@ public class CategoryVsNoOfProducts {
 		 */
 		JavaPairRDD<Integer, Integer> productReduceRDD = ProductCategory.reduceByKey(new Function2<Integer, Integer, Integer>() {
 			
+			
+			private static final long serialVersionUID = 1L;
+
 			public Integer call(Integer v1, Integer v2) throws Exception {
 				return v1+v2;
 			}
