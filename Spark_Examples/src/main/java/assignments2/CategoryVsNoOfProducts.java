@@ -25,10 +25,8 @@ public class CategoryVsNoOfProducts {
 		JavaRDD<String> productsRDD = spark
 				.textFile("InputFiles_Assignment2//products.csv");
 
-		// Store Header
 		final String header = productsRDD.first();
 
-		// Remove Header
 		JavaRDD<String> productFiltersRDD = productsRDD
 				.filter(new Function<String, Boolean>() {
 
@@ -44,7 +42,9 @@ public class CategoryVsNoOfProducts {
 				});
 
 		/*
-		 * Product Category RDD has Key : Category Id ; Value : product
+		 * Product Category RDD has 
+		 * Key : Category Id 
+		 * Value : product
 		 */
 		JavaPairRDD<Integer, Integer> ProductCategory = productFiltersRDD
 				.mapToPair(new PairFunction<String, Integer, Integer>() {
@@ -62,21 +62,20 @@ public class CategoryVsNoOfProducts {
 		/*
 		 * Reduce the no of products according to their category
 		 */
-		JavaPairRDD<Integer, Integer> productReduceRDD = ProductCategory
-				.reduceByKey(new Function2<Integer, Integer, Integer>() {
+		JavaPairRDD<Integer, Integer> productReduceRDD = ProductCategory.reduceByKey(new Function2<Integer, Integer, Integer>() {
+			
+			
+			private static final long serialVersionUID = 1L;
 
-					private static final long serialVersionUID = 1L;
-
-					public Integer call(Integer v1, Integer v2)
-							throws Exception {
-						return v1 + v2;
-					}
-				});
-
+			public Integer call(Integer v1, Integer v2) throws Exception {
+				return v1+v2;
+			}
+		});
+		
 		JavaRDD<String> categoriesRDD = spark
 				.textFile("InputFiles_Assignment2//categories.csv");
 
-		// Header
+		//Header 
 		final String headerCategories = categoriesRDD.first();
 
 		/*
@@ -97,7 +96,7 @@ public class CategoryVsNoOfProducts {
 				});
 
 		/*
-		 * CategoryDetailsRDD has Key : Category Id ; Value : Category Name
+		 * CategoryDetailsRDD has Key : Category Id Value : Category Name
 		 */
 		JavaPairRDD<Integer, String> CategoryDetailsRDD = categoriesFilterRDD
 				.mapToPair(new PairFunction<String, Integer, String>() {
@@ -112,15 +111,14 @@ public class CategoryVsNoOfProducts {
 					}
 				});
 
-		JavaPairRDD<Integer, Tuple2<String, Integer>> joinRDD = CategoryDetailsRDD
-				.join(productReduceRDD);
+		JavaPairRDD<Integer, Tuple2<String, Integer>> joinRDD = CategoryDetailsRDD.join(productReduceRDD);
 
 		System.out.println(joinRDD.collect());
-
+		
 		JavaRDD<Tuple2<String, Integer>> result = joinRDD.values();
-
+		
 		System.out.println(result.collect());
-
+		
 		spark.stop();
 		spark.close();
 	}

@@ -11,6 +11,7 @@ import org.apache.spark.storage.StorageLevel;
 import scala.Tuple2;
 
 public class EmployeesVsRevenue {
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		SparkConf conf = new SparkConf().setAppName(
 				"Number of prodcts for Each Category").setMaster("local");
@@ -88,6 +89,8 @@ public class EmployeesVsRevenue {
 		 */
 		JavaPairRDD<Integer, Integer> oidPid = orderFilterRDD.mapToPair(new PairFunction<String, Integer, Integer>() {
 
+			private static final long serialVersionUID = 1L;
+
 			public Tuple2<Integer, Integer> call(String t) throws Exception {
 				String words[] = t.split("\\|");
 				
@@ -100,6 +103,8 @@ public class EmployeesVsRevenue {
 		 * Key : 
 		 */
 		JavaPairRDD<Integer, Integer> oidQty = orderFilterRDD.mapToPair(new PairFunction<String, Integer, Integer>() {
+
+			private static final long serialVersionUID = 1L;
 
 			public Tuple2<Integer, Integer> call(String t) throws Exception {
 				String words[] = t.split("\\|");
