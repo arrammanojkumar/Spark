@@ -21,12 +21,22 @@ public class PositionsByDocMapper extends
 		/*
 		 * perform operation regarding text splitting and getting word and all
 		 */
-		String words[] = value.toString().split("\\W");
+		String words[] = value.toString().split(" ");
 
 		for (String word : words) {
-			if(!word.equals(" "))
-			context.write(new Text(word.toLowerCase()), new Text(fileName + "@"
-					+ currentOffset));
+
+			System.out.print(word + " ");
+
+			if (!word.equals(" ")) {
+
+				System.out.println(" context ==>  "
+						+ (fileName + "@" + currentOffset));
+				
+				context.write(new Text(word.toLowerCase()), new Text(fileName
+						+ "@" + currentOffset));
+			}
+
+			currentOffset += word.length();
 		}
 	}
 
