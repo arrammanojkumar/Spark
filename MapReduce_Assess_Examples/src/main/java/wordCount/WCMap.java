@@ -7,7 +7,6 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
 public class WCMap extends Mapper<LongWritable, Text, Text, IntWritable> {
 
@@ -18,17 +17,19 @@ public class WCMap extends Mapper<LongWritable, Text, Text, IntWritable> {
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		String line = value.toString();
-		
-		//Get the respective file name
-		String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
 
+//		Get the respective file name
+//		String fileName = ((FileSplit) context.getInputSplit()).getPath()
+//				.getName();
+		
 		StringTokenizer tokens = new StringTokenizer(line);
 
+		System.out.println(context.getInputSplit().toString());
 		while (tokens.hasMoreElements()) {
-			word.set(tokens.nextToken()+" -- "+fileName);
+			word.set(tokens.nextToken());
 			context.write(word, one);
 		}
 
-		System.out.println("In Map : "+word);
+		System.out.println("In Map : " + word);
 	}
 }
