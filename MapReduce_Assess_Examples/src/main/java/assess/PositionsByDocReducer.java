@@ -24,20 +24,22 @@ public class PositionsByDocReducer extends
 			offsetList.add(Long.parseLong(offset));
 		}
 
-		if (!offsetList.contains(Long.parseLong(offset)))
-			offsetList.add(Long.parseLong(offset));
+		offsetList.add(Long.parseLong(offset));
+
 		map.put(fileName, offsetList);
 	}
 
 	@Override
 	protected void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
+
 		map = new HashMap<String, ArrayList<Long>>();
+
+		System.out.println("Reduce key " + key + "  values " + values);
 
 		for (Text value : values) {
 			String fileName = value.toString().split("\\@")[0];
 			String offset = value.toString().split("\\@")[1];
-
 			add(fileName, offset);
 		}
 

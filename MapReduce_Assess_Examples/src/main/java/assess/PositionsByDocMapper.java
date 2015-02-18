@@ -26,7 +26,7 @@ public class PositionsByDocMapper extends
 		for (String word : words) {
 			if(!word.equals(" "))
 			context.write(new Text(word.toLowerCase()), new Text(fileName + "@"
-					+ currentOffset));
+					+ currentOffset+"@"));
 		}
 	}
 
