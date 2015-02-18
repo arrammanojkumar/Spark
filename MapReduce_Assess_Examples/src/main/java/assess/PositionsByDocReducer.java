@@ -40,6 +40,7 @@ public class PositionsByDocReducer extends
 		for (Text value : values) {
 			String fileName = value.toString().split("\\@")[0];
 			String offset = value.toString().split("\\@")[1];
+			
 			add(fileName, offset);
 		}
 
