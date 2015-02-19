@@ -33,6 +33,7 @@ public class PositionsByDocMapper extends
 			String word = token.nextToken();
 			System.out.print(word + " ");
 
+			//Removing Null Words
 			if (!word.equals(" ")) {
 				/*
 				 * Checking weather it is first line in input file or not
