@@ -18,13 +18,13 @@ public class PositionsByDocReducer extends
 
 		if (map.get(fileName) != null) {
 			offsetList = map.get(fileName);
+			map.remove(fileName);
 		} else {
 			offsetList = new ArrayList<Long>();
+			offsetList.add(Long.parseLong(offset));
 		}
 
-		System.out.println("Adding to list : "+offset);
 		offsetList.add(Long.parseLong(offset));
-		System.out.println("After adding " + offsetList);
 
 		map.put(fileName, offsetList);
 	}
@@ -35,17 +35,17 @@ public class PositionsByDocReducer extends
 
 		map = new HashMap<String, ArrayList<Long>>();
 
-		System.out.print("Reduce key: " + key + ",  values : \t");
+		System.out.println("Reduce key " + key + "  values : \t");
 
 		for (Text value : values) {
-			System.out.print(value + " ");
-
+			System.out.print(value +" ");
+			
 			String fileName = value.toString().split("\\@")[0];
 			String offset = value.toString().split("\\@")[1];
-
+			
 			add(fileName, offset);
 		}
-		System.out.println();
+
 		context.write(key, new DocumentOffsetWriter(map));
 	}
 }

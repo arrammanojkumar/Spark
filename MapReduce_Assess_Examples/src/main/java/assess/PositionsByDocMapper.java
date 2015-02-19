@@ -1,7 +1,6 @@
 package assess;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -22,17 +21,17 @@ public class PositionsByDocMapper extends
 		/*
 		 * perform operation regarding text splitting and getting word and all
 		 */
-		StringTokenizer token = new StringTokenizer(value.toString(), " , . ");
+		String words[] = value.toString().split(" ");
 
-		while (token.hasMoreTokens()) {
+		for (String word : words) {
 
-			String word = token.nextToken();
+			System.out.print(word + " ");
 
 			if (!word.equals(" ")) {
 
-				System.out.println("Word : "+word+" context ==>  "
+				System.out.println(" context ==>  "
 						+ (fileName + "@" + currentOffset));
-
+				
 				context.write(new Text(word.toLowerCase()), new Text(fileName
 						+ "@" + currentOffset));
 			}
