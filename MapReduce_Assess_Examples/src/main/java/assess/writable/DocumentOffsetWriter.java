@@ -38,10 +38,10 @@ public class DocumentOffsetWriter implements Writable {
 		return map.get(word).toString();
 	}
 
-	public String getCountPositions(String word)
-	{
-		return getListCount(word)+" "+getCountPositions(word);
+	public String getCountPositions(String word) {
+		return getListCount(word) + " " + getCountPositions(word);
 	}
+
 	public void write(DataOutput out) throws IOException {
 		Iterator<String> it = map.keySet().iterator();
 

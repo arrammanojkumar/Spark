@@ -1,6 +1,7 @@
 package assess;
 
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -21,22 +22,39 @@ public class PositionsByDocMapper extends
 		/*
 		 * perform operation regarding text splitting and getting word and all
 		 */
-		String words[] = value.toString().split(" ");
+		StringTokenizer token = new StringTokenizer(value.toString(), " , . ");
 
-		for (String word : words) {
+		System.out.println("Offset : "+currentOffset);
+		// For space and special character counting
+		Long index = 0L;
+		int wordLenth = 0;
+		while (token.hasMoreTokens()) {
 
+			String word = token.nextToken();
 			System.out.print(word + " ");
 
 			if (!word.equals(" ")) {
+				/*
+				 * Checking weather it is first line in input file or not
+				 * 
+				 * if TRUE : don't add 1 to index ( not adding beacuse of '\n' character )
+				 * 
+				 * else : add 1 to index 
+				 */
+				if(currentOffset > 0L)
+					index = value.toString().indexOf(word, wordLenth) + currentOffset;
+				else
+					index = value.toString().indexOf(word, wordLenth) + currentOffset+1;
+				
+				wordLenth += word.length();
 
 				System.out.println(" context ==>  "
-						+ (fileName + "@" + currentOffset));
-				
-				context.write(new Text(word.toLowerCase()), new Text(fileName
-						+ "@" + currentOffset));
-			}
+						+ (fileName + "@" + currentOffset) + " Index is : "
+						+ index);
 
-			currentOffset += word.length();
+				context.write(new Text(word.toLowerCase()), new Text(fileName
+						+ "@" + index));
+			}
 		}
 	}
 
