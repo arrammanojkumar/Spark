@@ -19,39 +19,42 @@ public class PositionsByDocMapper extends
 				.getName();
 
 		Long currentOffset = getOffset(context, offset);
-		/*
-		 * perform operation regarding text splitting and getting word and all
-		 */
+
+		// perform operation regarding text splitting and getting word and all
 		StringTokenizer token = new StringTokenizer(value.toString(), " , . ");
 
-		System.out.println("Offset : "+currentOffset);
+//		System.out.println("Offset : " + currentOffset);
+		
 		// For space and special character counting
 		Long index = 0L;
 		int wordLenth = 0;
 		while (token.hasMoreTokens()) {
 
 			String word = token.nextToken();
-			System.out.print(word + " ");
+//			System.out.print(word + " ");
 
-			//Removing Null Words
+			// Removing Null Words
 			if (!word.equals(" ")) {
 				/*
 				 * Checking weather it is first line in input file or not
 				 * 
-				 * if TRUE : don't add 1 to index ( not adding beacuse of '\n' character )
+				 * if TRUE : don't add 1 to index ( not adding beacuse of '\n'
+				 * character )
 				 * 
-				 * else : add 1 to index 
+				 * else : add 1 to index
 				 */
-				if(currentOffset > 0L)
-					index = value.toString().indexOf(word, wordLenth) + currentOffset;
+				if (currentOffset > 0L)
+					index = value.toString().indexOf(word, wordLenth)
+							+ currentOffset;
 				else
-					index = value.toString().indexOf(word, wordLenth) + currentOffset+1;
-				
+					index = value.toString().indexOf(word, wordLenth)
+							+ currentOffset + 1;
+
 				wordLenth += word.length();
 
-				System.out.println(" context ==>  "
-						+ (fileName + "@" + currentOffset) + " Index is : "
-						+ index);
+//				System.out.println(" context ==>  "
+//						+ (fileName + "@" + currentOffset) + " Index is : "
+//						+ index);
 
 				context.write(new Text(word.toLowerCase()), new Text(fileName
 						+ "@" + index));
@@ -74,7 +77,7 @@ public class PositionsByDocMapper extends
 		Long splitStartOffset, currentOffset = Long.MIN_VALUE;
 
 		if (splitDetails.length == 4) {
-			System.out.println("Offset Details : " + splitDetails[3]);
+//			System.out.println("Offset Details : " + splitDetails[3]);
 
 			String offsetDetails[] = splitDetails[3].split("\\+");
 			splitStartOffset = Long.parseLong(offsetDetails[0]);

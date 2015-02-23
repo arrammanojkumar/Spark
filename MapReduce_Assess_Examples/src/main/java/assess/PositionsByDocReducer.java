@@ -33,10 +33,10 @@ public class PositionsByDocReducer extends
 
 		map = new HashMap<String, ArrayList<Long>>();
 
-		System.out.println("Reduce key " + key + "  values : \t");
+//		System.out.println("Reduce key " + key + "  values : \t");
 
 		for (Text value : values) {
-			System.out.print(value + " ");
+//			System.out.print(value + " ");
 
 			String fileName = value.toString().split("\\@")[0];
 			String offset = value.toString().split("\\@")[1];

@@ -34,6 +34,10 @@ public class DocumentOffsetWriter implements Writable {
 		return map.get(word).size();
 	}
 
+	/**
+	 * @param word
+	 * @return 
+	 */
 	public String getPositions(String word) {
 		return map.get(word).toString();
 	}
@@ -62,7 +66,6 @@ public class DocumentOffsetWriter implements Writable {
 			tag.readFields(in);
 			new Text(getCountPositions(t)).readFields(in);
 		}
-
 	}
 
 	@Override
