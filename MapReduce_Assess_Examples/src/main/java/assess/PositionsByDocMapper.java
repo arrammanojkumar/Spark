@@ -23,15 +23,14 @@ public class PositionsByDocMapper extends
 		// perform operation regarding text splitting and getting word and all
 		StringTokenizer token = new StringTokenizer(value.toString(), " , . ");
 
-//		System.out.println("Offset : " + currentOffset);
-		
+		// System.out.println("Offset : " + currentOffset);
+
 		// For space and special character counting
 		Long index = 0L;
 		int wordLenth = 0;
 		while (token.hasMoreTokens()) {
 
-			String word = token.nextToken();
-//			System.out.print(word + " ");
+			String word = token.nextToken().replaceAll("[^\\w\\s]", "").trim();
 
 			// Removing Null Words
 			if (!word.equals(" ")) {
@@ -52,9 +51,9 @@ public class PositionsByDocMapper extends
 
 				wordLenth += word.length();
 
-//				System.out.println(" context ==>  "
-//						+ (fileName + "@" + currentOffset) + " Index is : "
-//						+ index);
+				// System.out.println(" context ==>  "
+				// + (fileName + "@" + currentOffset) + " Index is : "
+				// + index);
 
 				context.write(new Text(word.toLowerCase()), new Text(fileName
 						+ "@" + index));
@@ -77,7 +76,7 @@ public class PositionsByDocMapper extends
 		Long splitStartOffset, currentOffset = Long.MIN_VALUE;
 
 		if (splitDetails.length == 4) {
-//			System.out.println("Offset Details : " + splitDetails[3]);
+			// System.out.println("Offset Details : " + splitDetails[3]);
 
 			String offsetDetails[] = splitDetails[3].split("\\+");
 			splitStartOffset = Long.parseLong(offsetDetails[0]);
