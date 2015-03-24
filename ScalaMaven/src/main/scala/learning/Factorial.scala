@@ -19,5 +19,4 @@ object Factorial {
     else
       n * factorial(n - 1)
   }
-
 }
