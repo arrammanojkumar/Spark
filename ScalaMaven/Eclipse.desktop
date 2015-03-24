@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=/home/cloudera/eclipse/icon.xpm
+Name[en_US]=Eclipse
+Exec=/home/cloudera/eclipse/eclipse
+Comment[en_US]=Eclipse IDE
+Name=Eclipse
+Comment=Eclipse IDE
+Icon=/home/cloudera/eclipse/icon.xpm

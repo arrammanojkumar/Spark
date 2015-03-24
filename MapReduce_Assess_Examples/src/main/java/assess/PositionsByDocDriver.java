@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -27,9 +28,13 @@ public class PositionsByDocDriver {
 
 				job.setMapperClass(PositionsByDocMapper.class);
 				job.setReducerClass(PositionsByDocReducer.class);
+
+				job.setMapOutputKeyClass(Text.class);
+				job.setMapOutputValueClass(Text.class);
+
 				System.out.println("Set Mapper and Reducer done");
 
-				job.setOutputKeyClass(Text.class);
+				job.setOutputKeyClass(NullWritable.class);
 				job.setOutputValueClass(Text.class);
 				System.out.println("Settign key and values done ");
 

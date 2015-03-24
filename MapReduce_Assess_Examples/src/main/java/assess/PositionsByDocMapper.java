@@ -21,7 +21,7 @@ public class PositionsByDocMapper extends
 		Long currentOffset = getOffset(context, offset);
 
 		// perform operation regarding text splitting and getting word and all
-		StringTokenizer token = new StringTokenizer(value.toString(), " , . ");
+		StringTokenizer token = new StringTokenizer(value.toString(), ", . ; : \t \r \n \f");
 
 		// System.out.println("Offset : " + currentOffset);
 
@@ -33,7 +33,7 @@ public class PositionsByDocMapper extends
 			String word = token.nextToken().replaceAll("[^\\w\\s]", "").trim();
 
 			// Removing Null Words
-			if (!word.equals(" ")) {
+			if (word.length() > 0) {
 				/*
 				 * Checking weather it is first line in input file or not
 				 * 

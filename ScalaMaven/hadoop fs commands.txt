@@ -1,0 +1,5 @@
+"hadoop fs -moveFromLocal " + loaclFile + " " + hdfsFile,
+
+hdfs dfs -cat " + fileName ,
+
+hadoop jar <path to jar File> <Driver Class name > <Input file path> <Output File path>
