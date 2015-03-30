@@ -9,7 +9,6 @@ package learning
  */
 object SampleExamples {
   def main(args: Array[String]): Unit = {
-    println(perfectSquare(9))
   }
 
   /**
