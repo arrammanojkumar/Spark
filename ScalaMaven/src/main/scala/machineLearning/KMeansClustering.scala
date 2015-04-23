@@ -16,20 +16,19 @@ object KMeansClustering {
   val sc = new SparkContext(new SparkConf().setAppName("KMeansClustering").setMaster("local"))
 
   def main(args: Array[String]): Unit = {
-    if (args.length < 4) {
+    if (args.length > 4) {
       println("Usage : <File Path> <Number of Clusters> <Number of interations> <Number of Runs> < Initialization mode 0 : Random 1. Parallel> (optional parameters are )<Train percentage> <Test percentage>")
     } else {
-      /*    var filePath = "C://Users//marram//Desktop//normalizedf.csv"
-            var numClusters = 2
-            var numInterations = 4
-            var runs = 1
-            var initializationMode = 1
-      
-            var trainPercentage = 0.70
-            var testPercentage = 0.30
-       */
+      var filePath = "C://Users//marram//Desktop//normalizedf.csv"
+      var numClusters = 2
+      var numInterations = 250
+      var runs = 1
+      var initializationMode = 0
 
-      var filePath = args(0)
+      var trainPercentage = 0.70
+      var testPercentage = 0.30
+
+      /*  var filePath = args(0)
       var numClusters = args(1).toInt
       var numInterations = args(2).toInt
       var runs = args(3).toInt
@@ -41,7 +40,7 @@ object KMeansClustering {
       if (args.length == 7) {
         trainPercentage = args(5).toDouble
         testPercentage = args(6).toDouble
-      }
+      }*/
 
       var dataRDD = getReadFile(filePath)
 
@@ -49,11 +48,14 @@ object KMeansClustering {
 
       if (data_split != null) {
         var Array(trainData: RDD[Vector], testData: RDD[Vector]) = data_split
-        trainData foreach println
+
+        //        trainData foreach println
+
         var trainModel = getTrainModel(trainData, numClusters, numInterations, runs, initializationMode)
         var testModel = getPredictedTestModel(trainModel, testData)
         var WSSE = getWSSE(trainModel, testData)
         print("Within Set Sum of Squared Errors : " + WSSE)
+        
       } else {
         println("Check for Train and Test percentages ")
       }
@@ -63,7 +65,7 @@ object KMeansClustering {
   /**
    * Returns the file pointer handle
    */
-  def getReadFile(filePath: String) = {
+  private def getReadFile(filePath: String) = {
     var csvFile = sc.textFile(filePath)
     csvFile.map(line => Vectors.dense(line.split(",").map(_.toDouble)))
   }
@@ -92,8 +94,8 @@ object KMeansClustering {
   /**
    * Returns cluster details
    */
-  def getNumberOfClusters(kMeansModel: KMeansModel) = {
-    kMeansModel.clusterCenters
+  def getNumberOfClusters(kmmeansModel: KMeansModel) = {
+    kmmeansModel.clusterCenters
   }
 
   /**
