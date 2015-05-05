@@ -38,5 +38,20 @@
 			<version>2.12.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.json4s</groupId>
+			<artifactId>json4s-core_2.10</artifactId>
+			<version>3.2.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thoughtworks.paranamer</groupId>
+			<artifactId>paranamer</artifactId>
+			<version>2.6</version>
+		</dependency>
+		
 	</dependencies>
+
+
+
 </project>
